@@ -36,7 +36,23 @@ body, .vennify-app {
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.5);
 }
+@media (max-width: 768px) {
+  .vennify-header h1 {
+    font-size: 36px;
+  }
 
+  .vennify-header p {
+    font-size: 18px;
+  }
+
+  .chat-input {
+    font-size: 18px;
+  }
+
+  .chat-button {
+    font-size: 18px;
+  }
+}
 .vennify-main {
   display: flex;
   justify-content: center;
