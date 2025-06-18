@@ -68,7 +68,7 @@ const ChatBot = () => {
           type="text"
           value={input}
           onChange={e => setInput(e.target.value)}
-          placeholder="Kysy jotain rahasta..."
+          placeholder="Mitä haluaisit ymmärtää paremmin rahankäytöstä?"
         />
         <button className="chat-send-icon" onClick={sendMessage}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20">
