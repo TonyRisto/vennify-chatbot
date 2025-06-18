@@ -76,7 +76,7 @@ body, .vennify-app {
 .chat-window {
   min-height: 200px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.01);
   padding: 1rem;
   border-radius: 12px;
   margin-bottom: 1rem;
@@ -97,7 +97,7 @@ body, .vennify-app {
   flex: 1;
   padding: 0.75rem;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: transparent;
   color: white;
   font-size: 16px;
@@ -111,7 +111,7 @@ body, .vennify-app {
   width: 100%;
   align-self: center;
   padding: 0.75rem 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.3);
   color: white;
