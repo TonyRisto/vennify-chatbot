@@ -136,6 +136,28 @@ body, .vennify-app {
   height: 1.25rem;
 }
 
+.chat-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.suggestion-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.suggestion-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
 .vennify-footer {
   text-align: center;
   padding: 1rem;
