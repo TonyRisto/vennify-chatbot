@@ -51,7 +51,7 @@ const ChatBot = () => {
         ))}
         {loading && <p><em>VennifyAI kirjoittaa...</em></p>}
       </div>
-      <div className="chat-input-row">
+      <div className="chat-input-wrapper">
         <input
           className="chat-input"
           type="text"
@@ -59,7 +59,9 @@ const ChatBot = () => {
           onChange={e => setInput(e.target.value)}
           placeholder="Kysy jotain rahasta..."
         />
-        <button className="chat-button" onClick={sendMessage}>Lähetä</button>
+        <button className="chat-send-icon" onClick={sendMessage}>
+          📩
+        </button>
       </div>
     </div>
   );
