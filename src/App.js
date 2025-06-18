@@ -19,8 +19,6 @@ function App() {
         <small>🔒 Tietosi pysyvät vain sinulla | Powered by Vennify & OpenAI</small>
       </footer>
     </div>
-  );
-}
 .chat-container {
   padding: 1rem;
   max-width: 600px;
