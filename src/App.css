@@ -1,10 +1,10 @@
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600&display=swap');
 
 :root {
-  --primary-color: #3b82f6;
+  --primary-color: white;
   --bg-color: transparent;
-  --text-color: #111827;
-  --bot-bg: #ffffff;
+  --text-color: white;
+  --bot-bg: transparent;
 }
 
 body, .vennify-app {
@@ -33,7 +33,7 @@ body, .vennify-app {
 
 .vennify-header p {
   font-size: 1.1rem;
-  color: #555;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .vennify-main {
@@ -43,7 +43,7 @@ body, .vennify-app {
 }
 
 .chatbot-container {
-  background: var(--bot-bg);
+  background: transparent;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
   max-width: 600px;
@@ -54,7 +54,7 @@ body, .vennify-app {
 .vennify-footer {
   text-align: center;
   padding: 1rem;
-  color: #777;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.9rem;
 }
 
