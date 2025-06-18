@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="vennify-app">
       <header className="vennify-header">
-        <h1>Kysy mitä vain ja ota taloutesi haltuun ilman budjettia</h1>
+        <h1>Kysy vinkkejä arjen rahankäyttöön</h1>
         <p>Tämä VennifyAI auttaa sinua säästämään, hallitsemaan rahankäyttöäsi ja ymmärtämään mihin rahasi oikeasti menevät.</p>
       </header>
 
