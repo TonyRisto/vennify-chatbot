@@ -51,8 +51,8 @@ function App() {
 .chat-input {
   flex: 1;
   padding: 0.75rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  border: 0.5px solid rgba(255, 255, 255);
   background-color: transparent;
   color: white;
   font-size: 16px;
