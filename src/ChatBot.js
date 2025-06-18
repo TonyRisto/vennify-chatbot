@@ -29,10 +29,9 @@ const ChatBot = () => {
 
       const data = await response.json();
       const botReply = data.choices?.[0]?.message || {
-  	role: 'assistant',
-  	content: 'Valitettavasti OpenAI ei vastannut – palvelu voi olla hetkellisesti ylikuormittunut. Yritä hetken päästä uudelleen.',
-};
-
+        role: 'assistant',
+        content: 'Valitettavasti OpenAI ei vastannut – palvelu voi olla hetkellisesti ylikuormittunut. Yritä hetken päästä uudelleen.',
+      };
 
       setMessages(prev => [...prev, botReply]);
     } catch (error) {
@@ -43,23 +42,25 @@ const ChatBot = () => {
   };
 
   return (
-    <div style={{ padding: '1rem', maxWidth: '600px', margin: 'auto' }}>
-      <div style={{ minHeight: '200px', border: '1px solid #ccc', padding: '1rem' }}>
+    <div className="chat-container">
+      <div className="chat-window">
         {messages.map((msg, index) => (
-          <div key={index}>
+          <div key={index} className="chat-message">
             <strong>{msg.role === 'user' ? 'Sinä' : 'RahaRauno'}:</strong> {msg.content}
           </div>
         ))}
         {loading && <p><em>RahaRauno kirjoittaa...</em></p>}
       </div>
-      <input
-        style={{ width: '80%', marginTop: '1rem' }}
-        type="text"
-        value={input}
-        onChange={e => setInput(e.target.value)}
-        placeholder="Kysy jotain rahasta..."
-      />
-      <button onClick={sendMessage} style={{ marginLeft: '1rem' }}>Lähetä</button>
+      <div className="chat-input-row">
+        <input
+          className="chat-input"
+          type="text"
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          placeholder="Kysy jotain rahasta..."
+        />
+        <button className="chat-button" onClick={sendMessage}>Lähetä</button>
+      </div>
     </div>
   );
 };
