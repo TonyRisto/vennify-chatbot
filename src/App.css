@@ -20,11 +20,6 @@ body, .vennify-app {
   padding: 2rem 1rem 1rem;
 }
 
-.vennify-logo {
-  height: 50px;
-  margin-bottom: 1rem;
-}
-
 .vennify-header h1 {
   margin: 0.5rem 0;
   font-weight: 600;
