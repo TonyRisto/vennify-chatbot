@@ -17,7 +17,7 @@ body, .vennify-app {
 
 @media (max-width: 768px) {
   body, .vennify-app {
-    padding: 1.5rem;
+    padding: 1rem;
   }
 }
 
