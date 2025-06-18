@@ -37,25 +37,27 @@ body, .vennify-app {
 .vennify-header p {
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.5);
-  line-height: 24px;
+  line-height: 1.5rem;
 }
+
 @media (max-width: 768px) {
   .vennify-header h1 {
-    font-size: 36px;
+    font-size: 1.75rem;
   }
 
   .vennify-header p {
-    font-size: 18px;
+    font-size: 1rem;
   }
 
   .chat-input {
-    font-size: 18px;
+    font-size: 1rem;
   }
 
   .chat-button {
-    font-size: 18px;
+    font-size: 1rem;
   }
 }
+
 .vennify-main {
   display: flex;
   justify-content: center;
@@ -87,18 +89,18 @@ body, .vennify-app {
 
 .chat-message {
   margin-bottom: 0.75rem;
+  line-height: 1.6;
+  letter-spacing: 0.2px;
 }
 
-.chat-input-row {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.75rem
+.chat-input-wrapper {
+  position: relative;
+  width: 100%;
 }
 
 .chat-input {
-  flex: 1;
-  padding: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 3rem 0.75rem 1rem;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: transparent;
@@ -110,20 +112,20 @@ body, .vennify-app {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.chat-button {
-  width: 100%;
-  align-self: center;
-  padding: 0.75rem 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.3);
+.chat-send-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
   color: white;
+  font-size: 1.25rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
-.chat-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+.chat-send-icon:hover {
+  opacity: 0.8;
 }
 
 .vennify-footer {
