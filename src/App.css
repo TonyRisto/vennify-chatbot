@@ -17,7 +17,7 @@ body, .vennify-app {
 
 @media (max-width: 768px) {
   body, .vennify-app {
-    padding: 1rem;
+    padding: 0.1rem;
   }
 }
 
@@ -70,7 +70,7 @@ body, .vennify-app {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
   max-width: 600px;
   width: 100%;
-  padding: 1rem;
+  padding: 0.1rem;
 }
 
 .chat-container {
