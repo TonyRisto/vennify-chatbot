@@ -4,6 +4,7 @@ const ChatBot = () => {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [suggestionsVisible, setSuggestionsVisible] = useState(true);
 
   const systemPrompt = {
     role: 'system',
@@ -11,16 +12,18 @@ const ChatBot = () => {
       'Olet VennifyAI, rento ja helposti lähestyttävä henkilökohtainen raha-avustaja. Puhut suomea, käytät arkista kieltä ja autat käyttäjää hallitsemaan omaa talouttaan ilman budjetteja – käytännönläheisesti, helposti ja heti hyödynnettävillä vinkeillä.',
   };
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
+  const sendMessage = async (customInput = null) => {
+    const currentInput = customInput ?? input;
+    if (!currentInput.trim()) return;
 
-    const userMessage = { role: 'user', content: input };
+    const userMessage = { role: 'user', content: currentInput };
     const baseMessages =
       messages.length === 0 ? [systemPrompt] : messages.filter(m => m.role !== 'system');
     const messageHistory = [...baseMessages, userMessage];
 
     setMessages(messageHistory);
     setInput('');
+    setSuggestionsVisible(false);
     setLoading(true);
 
     try {
@@ -74,17 +77,19 @@ const ChatBot = () => {
         {loading && <p><em>VennifyAI kirjoittaa...</em></p>}
       </div>
 
-      <div className="chat-suggestions">
-        {quickSuggestions.map((text, index) => (
-          <button
-            key={index}
-            className="suggestion-button"
-            onClick={() => setInput(text)}
-          >
-            {text}
-          </button>
-        ))}
-      </div>
+      {suggestionsVisible && (
+        <div className="chat-suggestions">
+          {quickSuggestions.map((text, index) => (
+            <button
+              key={index}
+              className="suggestion-button"
+              onClick={() => sendMessage(text)}
+            >
+              {text}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="chat-input-wrapper">
         <input
@@ -94,7 +99,7 @@ const ChatBot = () => {
           onChange={e => setInput(e.target.value)}
           placeholder="Mitä haluaisit ymmärtää paremmin rahankäytöstä?"
         />
-        <button className="chat-send-icon" onClick={sendMessage}>
+        <button className="chat-send-icon" onClick={() => sendMessage()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
