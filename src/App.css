@@ -1,38 +1,63 @@
-.App {
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600&display=swap');
+
+:root {
+  --primary-color: #3b82f6;
+  --bg-color: #f9fafb;
+  --text-color: #111827;
+  --bot-bg: #ffffff;
+}
+
+body, .vennify-app {
+  margin: 0;
+  padding: 0;
+  font-family: 'Satoshi', sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.vennify-header {
   text-align: center;
+  padding: 2rem 1rem 1rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.vennify-logo {
+  height: 50px;
+  margin-bottom: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.vennify-header h1 {
+  margin: 0.5rem 0;
+  font-weight: 600;
+  font-size: 1.75rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.vennify-header p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.vennify-main {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 2rem 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.chatbot-container {
+  background: var(--bot-bg);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  max-width: 600px;
+  width: 100%;
+  padding: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.vennify-footer {
+  text-align: center;
+  padding: 1rem;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.vennify-footer small {
+  display: block;
 }
