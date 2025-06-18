@@ -9,10 +9,16 @@
 
 body, .vennify-app {
   margin: 0;
-  padding: 2.5rem 7.5rem; /* 40px = 2.5rem, 120px = 7.5rem */
+  padding: 2.5rem 7.5rem;
   font-family: 'Satoshi', sans-serif;
   background: transparent;
   color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  body, .vennify-app {
+    padding: 1.5rem;
+  }
 }
 
 .vennify-header {
