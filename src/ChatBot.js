@@ -51,19 +51,20 @@ const ChatBot = () => {
         ))}
         {loading && <p><em>VennifyAI kirjoittaa...</em></p>}
       </div>
-      <div className="chat-input-wrapper">
-        <input
-          className="chat-input"
-          type="text"
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          placeholder="Kysy jotain rahasta..."
-        />
-        <button className="chat-send-icon" onClick={sendMessage}>
-          📩
-        </button>
-      </div>
-    </div>
+<div className="chat-input-wrapper">
+  <input
+    className="chat-input"
+    type="text"
+    value={input}
+    onChange={e => setInput(e.target.value)}
+    placeholder="Kysy jotain rahasta..."
+  />
+  <button className="chat-send-icon" onClick={sendMessage}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20">
+      <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
+    </svg>
+  </button>
+</div>
   );
 };
 
