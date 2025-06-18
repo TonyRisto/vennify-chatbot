@@ -15,7 +15,6 @@ function App() {
           <ChatBot />
         </div>
       </main>
-
       <footer className="vennify-footer">
         <small>🔒 Tietosi pysyvät vain sinulla | Powered by Vennify & OpenAI</small>
       </footer>
@@ -27,7 +26,6 @@ function App() {
   max-width: 600px;
   margin: auto;
   font-family: 'Satoshi', sans-serif;
-  color: white;
 }
 
 .chat-window {
