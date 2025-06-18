@@ -5,21 +5,29 @@ const ChatBot = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
+  const systemPrompt = {
+    role: 'system',
+    content:
+      'Olet VennifyAI, rento ja helposti lähestyttävä henkilökohtainen raha-avustaja. Puhut sujuvasti suomea, käytät selkeää, arkista kieltä ja vältät teknistä jargonia. Autat käyttäjää hallitsemaan omaa talouttaan ilman budjetteja – käytännönläheisesti, helposti ja heti hyödynnettävillä vinkeillä.\n\nVoit neuvoa seuraavissa aiheissa:\n- Arjen säästövinkit (esim. ruoka, liikkuminen, energia, tilaukset)\n- Sähkönkulutuksen fiksumpi hallinta\n- Vakuutusten kilpailutus ja tarpeellisuus\n- Luottokorttivelkojen hallinta ja maksu\n- Sijoittamisen perusteet (muistuta aina, että sijoittaminen on käyttäjän omalla vastuulla)\n- Henkinen raha-asenne ja kulutustottumusten muuttaminen\n\nJos aihe liittyy sijoittamiseen, kerro käyttäjälle ystävällisesti, ettei vastauksesi ole sijoitusneuvo, vaan yleistä tietoa, joka ei ota huomioon henkilökohtaista taloustilannetta.',
+  };
 
-    const systemPrompt = {
-      role: 'system',
-      content:
-        'Olet VennifyAI – helposti lähestyttävä henkilökohtainen raha-avustaja. Puhu suomea, käytä arkikieltä. Vastaa lyhyesti, selkeästi ja käytännönläheisesti. Älä laadi budjetteja tai taulukoita. Anna vinkkejä säästämiseen, kulutuksen hallintaan, sijoittamisen alkeisiin (omalla vastuulla), ja henkiseen rahasuhteeseen. Korosta arjen oivalluksia.',
-    };
+  const quickSuggestions = [
+    'Miten säästän ruokakuluissa?',
+    'Kannattaako ottaa luottokortti?',
+    'Miten kilpailutan vakuutukset?',
+    'Miten aloittaa sijoittaminen?',
+  ];
 
-    const userMessage = { role: 'user', content: input };
-    const messageHistory = messages.length === 0
+  const sendMessage = async (preset = null) => {
+    const content = preset || input;
+    if (!content.trim()) return;
+
+    const userMessage = { role: 'user', content };
+    const history = messages.length === 0
       ? [systemPrompt, userMessage]
       : [...messages, userMessage];
 
-    setMessages(messageHistory);
+    setMessages(history);
     setInput('');
     setLoading(true);
 
@@ -32,8 +40,8 @@ const ChatBot = () => {
         },
         body: JSON.stringify({
           model: 'gpt-3.5-turbo-1106',
-          messages: messageHistory,
-          max_tokens: 250,
+          messages: history,
+          max_tokens: 250, // Rajoitetaan pituus
         }),
       });
 
@@ -50,13 +58,6 @@ const ChatBot = () => {
       setLoading(false);
     }
   };
-
-  const quickSuggestions = [
-    "Miten säästän ruokakuluissa?",
-    "Kannattaako ottaa luottokortti?",
-    "Miten kilpailutan vakuutukset?",
-    "Miten aloittaa sijoittaminen?",
-  ];
 
   return (
     <div className="chat-container">
@@ -77,9 +78,7 @@ const ChatBot = () => {
             <button
               key={index}
               className="suggestion-button"
-              onClick={() => {
-                setInput(text);
-              }}
+              onClick={() => sendMessage(text)}
             >
               {text}
             </button>
@@ -93,9 +92,9 @@ const ChatBot = () => {
           type="text"
           value={input}
           onChange={e => setInput(e.target.value)}
-          placeholder="Kysy helposti rahasta – esim. vakuutuksista, kulutuksesta tai sijoittamisesta"
+          placeholder="Mitä haluaisit ymmärtää paremmin rahankäytöstä?"
         />
-        <button className="chat-send-icon" onClick={sendMessage}>
+        <button className="chat-send-icon" onClick={() => sendMessage()}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20">
             <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
           </svg>
