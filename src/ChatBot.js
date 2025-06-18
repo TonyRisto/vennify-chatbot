@@ -46,10 +46,10 @@ const ChatBot = () => {
       <div className="chat-window">
         {messages.map((msg, index) => (
           <div key={index} className="chat-message">
-            <strong>{msg.role === 'user' ? 'Sinä' : 'RahaRauno'}:</strong> {msg.content}
+            <strong>{msg.role === 'user' ? 'Sinä' : 'VennifyAI'}:</strong> {msg.content}
           </div>
         ))}
-        {loading && <p><em>RahaRauno kirjoittaa...</em></p>}
+        {loading && <p><em>VennifyAI kirjoittaa...</em></p>}
       </div>
       <div className="chat-input-row">
         <input
