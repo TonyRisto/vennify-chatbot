@@ -8,26 +8,18 @@ const ChatBot = () => {
   const systemPrompt = {
     role: 'system',
     content:
-      'Olet VennifyAI, rento ja helposti lähestyttävä henkilökohtainen raha-avustaja. Puhut sujuvasti suomea, käytät selkeää, arkista kieltä ja vältät teknistä jargonia. Autat käyttäjää hallitsemaan omaa talouttaan ilman budjetteja – käytännönläheisesti, helposti ja heti hyödynnettävillä vinkeillä.\n\nVoit neuvoa seuraavissa aiheissa:\n- Arjen säästövinkit (esim. ruoka, liikkuminen, energia, tilaukset)\n- Sähkönkulutuksen fiksumpi hallinta\n- Vakuutusten kilpailutus ja tarpeellisuus\n- Luottokorttivelkojen hallinta ja maksu\n- Sijoittamisen perusteet (muistuta aina, että sijoittaminen on käyttäjän omalla vastuulla)\n- Henkinen raha-asenne ja kulutustottumusten muuttaminen\n\nJos aihe liittyy sijoittamiseen, kerro käyttäjälle ystävällisesti, ettei vastauksesi ole sijoitusneuvo, vaan yleistä tietoa, joka ei ota huomioon henkilökohtaista taloustilannetta.',
+      'Olet VennifyAI, rento ja helposti lähestyttävä henkilökohtainen raha-avustaja. Puhut suomea, käytät arkista kieltä ja autat käyttäjää hallitsemaan omaa talouttaan ilman budjetteja – käytännönläheisesti, helposti ja heti hyödynnettävillä vinkeillä.',
   };
 
-  const quickSuggestions = [
-    'Miten säästän ruokakuluissa?',
-    'Kannattaako ottaa luottokortti?',
-    'Miten kilpailutan vakuutukset?',
-    'Miten aloittaa sijoittaminen?',
-  ];
+  const sendMessage = async () => {
+    if (!input.trim()) return;
 
-  const sendMessage = async (preset = null) => {
-    const content = preset || input;
-    if (!content.trim()) return;
+    const userMessage = { role: 'user', content: input };
+    const baseMessages =
+      messages.length === 0 ? [systemPrompt] : messages.filter(m => m.role !== 'system');
+    const messageHistory = [...baseMessages, userMessage];
 
-    const userMessage = { role: 'user', content };
-    const history = messages.length === 0
-      ? [systemPrompt, userMessage]
-      : [...messages, userMessage];
-
-    setMessages(history);
+    setMessages(messageHistory);
     setInput('');
     setLoading(true);
 
@@ -36,19 +28,21 @@ const ChatBot = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+          Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
           model: 'gpt-3.5-turbo-1106',
-          messages: history,
-          max_tokens: 250, // Rajoitetaan pituus
+          messages: [systemPrompt, ...messageHistory],
+          max_tokens: 500,
+          temperature: 0.7,
         }),
       });
 
       const data = await response.json();
       const botReply = data.choices?.[0]?.message || {
         role: 'assistant',
-        content: 'Valitettavasti OpenAI ei vastannut. Yritä hetken päästä uudelleen.',
+        content:
+          'Valitettavasti OpenAI ei vastannut – palvelu voi olla hetkellisesti ylikuormittunut.',
       };
 
       setMessages(prev => [...prev, botReply]);
@@ -59,6 +53,13 @@ const ChatBot = () => {
     }
   };
 
+  const quickSuggestions = [
+    'Miten säästän ruokakuluissa?',
+    'Kannattaako ottaa luottokortti?',
+    'Miten kilpailutan vakuutukset?',
+    'Miten aloittaa sijoittaminen?',
+  ];
+
   return (
     <div className="chat-container">
       <div className="chat-window">
@@ -66,25 +67,24 @@ const ChatBot = () => {
           .filter(msg => msg.role !== 'system')
           .map((msg, index) => (
             <div key={index} className="chat-message">
-              <strong>{msg.role === 'user' ? 'Sinä' : 'VennifyAI'}:</strong> {msg.content}
+              <strong>{msg.role === 'user' ? 'Sinä' : 'VennifyAI'}:</strong>{' '}
+              <span dangerouslySetInnerHTML={{ __html: msg.content.replace(/\n/g, '<br/>') }} />
             </div>
           ))}
         {loading && <p><em>VennifyAI kirjoittaa...</em></p>}
       </div>
 
-      {messages.length === 0 && (
-        <div className="chat-suggestions">
-          {quickSuggestions.map((text, index) => (
-            <button
-              key={index}
-              className="suggestion-button"
-              onClick={() => sendMessage(text)}
-            >
-              {text}
-            </button>
-          ))}
-        </div>
-      )}
+      <div className="chat-suggestions">
+        {quickSuggestions.map((text, index) => (
+          <button
+            key={index}
+            className="suggestion-button"
+            onClick={() => setInput(text)}
+          >
+            {text}
+          </button>
+        ))}
+      </div>
 
       <div className="chat-input-wrapper">
         <input
@@ -94,8 +94,14 @@ const ChatBot = () => {
           onChange={e => setInput(e.target.value)}
           placeholder="Mitä haluaisit ymmärtää paremmin rahankäytöstä?"
         />
-        <button className="chat-send-icon" onClick={() => sendMessage()}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20">
+        <button className="chat-send-icon" onClick={sendMessage}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="white"
+            width="20"
+            height="20"
+          >
             <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
           </svg>
         </button>
